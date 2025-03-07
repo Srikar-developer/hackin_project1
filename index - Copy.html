@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Presentation Generator</title>
+    <script>
+        function generatePresentation() {
+            let topic = document.getElementById("topic").value;
+            if (!topic) {
+                alert("Please enter a topic.");
+                return;
+            }
+
+            fetch("http://localhost:8000/generate?topic=" + encodeURIComponent(topic))
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Presentation saved! Check your folder.");
+                    } else {
+                        alert("Error generating presentation.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+    </script>
+</head>
+<body>
+    <h2>AI Presentation Generator</h2>
+    <input type="text" id="topic" placeholder="Enter topic...">
+    <button onclick="generatePresentation()">Generate PPT</button>
+</body>
+</html>
